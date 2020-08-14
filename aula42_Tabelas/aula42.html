@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabelas</title>
+    <style>
+        table{
+            table-layout: fixed;
+            border-collapse: collapse;
+            empty-cells: show;
+        }
+        th,td{
+            width: 150px;
+            border: 1px solid #000;
+            height: 40px;
+            text-align: center;
+            vertical-align: center;
+            font-weight: bold;
+        }
+        th{
+            background-color: #8a8;
+            color: #ffffff;
+            font-size: 20px;
+        }
+        tr:nth-child(odd){
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <table id="tabela">
+        <thead>
+            <tr>
+                <th>Alunos</th><th>Nota 1</th><th>Nota 2</th><th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Al1</td><td class="cells-nota1">6.5</td><td class="cells-nota2">8</td><td class="cells-result"></td>
+            </tr>
+            <tr>
+                <td>Al2</td><td class="cells-nota1">6.5</td><td class="cells-nota2">10</td><td class="cells-result"></td>
+            </tr>
+            <tr>
+                <td>Al3</td><td class="cells-nota1">6.5</td><td class="cells-nota2">5</td><td class="cells-result"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        var cellsResult =  document.querySelectorAll('td.cells-result');
+        var cellsNota1 = document.querySelectorAll('td.cells-nota1');
+        var cellsNota2 = document.querySelectorAll('td.cells-nota2');
+
+        for(var i=0; i<cellsResult.length; i++){
+            let nota1 = parseFloat(cellsNota1[i].innerHTML);
+            let nota2 = parseFloat(cellsNota2[i].innerHTML);
+            let valorResult = (nota1 + nota2)/2;
+            
+            cellsResult[i].innerHTML= valorResult;
+            formatarValor(cellsResult[i]);
+        }
+
+        function formatarValor(cell){
+            if(parseFloat(cell.innerHTML) < 7){
+                cell.style.color= '#f00';
+            }else{
+                cell.style.color= '#00f';
+            }
+        }
+    </script>
+    
+</body>
+</html>
