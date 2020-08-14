@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos-Mouse</title>
+
+    <style>
+        div{
+            background-color: #000;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        function msg(){
+            alert('Bem Vindo!');
+            mudaPosicao();
+        }
+        function cor(ele, cor){
+            ele.style.backgroundColor = cor;
+        }
+        function mudaPosicao(){
+            var div = document.getElementById('div');
+            var posTop = Math.random()*500;
+            var posLeft = Math.random()*1000;
+            div.style.top = `${posTop}px`;
+            div.style.left = `${posLeft}px`;
+        }
+        //Adiciona os eventos no elemento 'div'
+        function carregarEventos(){
+            var div = document.getElementById('div');
+            div.addEventListener('click', msg);
+            div.addEventListener('mouseover', function(){
+                cor(div, '#ff0')
+            });
+            div.addEventListener('mouseout', function(){
+                cor(div, '#0ff');
+            })
+        }
+        //Adiciona o evento 'load' à janela. Quando a janela é carregada, a função 'carregarEventos' é chamada
+        window.addEventListener('load', carregarEventos);
+    </script>
+
+</head>
+<body>
+
+    <div id="div"></div>
+    
+</body>
+</html>

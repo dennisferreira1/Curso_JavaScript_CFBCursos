@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos-Teclado</title>
+    <style>
+        div{
+            background-color: #fff;
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        var posx=0;
+        var posy=0;
+        var ligado=false;
+        function move(){
+            var div = document.getElementById('div');
+            var tecla = event.keyCode;
+            //37=esquerda, 38=cima, 39=direita, 40=baixo
+            switch(tecla){
+                case 37:
+                    posx -= 10;
+                    if(posx<0){
+                       posx=0; 
+                    }
+                    div.style.left = `${posx}px`;
+                    break;
+                case 38:
+                    posy -=10;
+                    if(posy<0){
+                       posy=0; 
+                    }
+                    div.style.top = `${posy}px`;
+                    break;
+                case 39:
+                    posx += 10;
+                    div.style.left = `${posx}px`;
+                    break;
+                case 40:
+                    posy += 10;
+                    div.style.top = `${posy}px`;
+                    break;
+            }
+        }
+        function estado(){
+            var div = document.getElementById('div');
+            if(!ligado){
+                div.style.backgroundColor = '#f00';
+                document.addEventListener('keydown', move);
+                alert('Evento adicionado ao bloco!');
+                ligado=true;
+            }else{
+                div.style.backgroundColor = '#fff';
+                document.removeEventListener('keydown', move);
+                alert('Evento removido do bloco!');
+                ligado=false;
+            }
+            
+        }
+        function carregaEventos(){
+            var div = document.getElementById('div');
+            div.addEventListener('click', estado);
+        }
+        window.addEventListener('load', carregaEventos);       
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>
