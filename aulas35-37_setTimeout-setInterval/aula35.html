@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout-setInterval</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            background-color: #fff;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+
+        function mudaCor1(){
+            var r = Math.random()*255;
+            var g = Math.random()*255;
+            var b = Math.random()*255;
+            var div1 = document.getElementById('div1');
+            div1.style.backgroundColor = `rgb(${r},${g},${b})`
+        }
+        function mudaCor2(){
+            var r = Math.random()*255;
+            var g = Math.random()*255;
+            var b = Math.random()*255;
+            var div2 = document.getElementById('div2');
+            div2.style.backgroundColor = `rgb(${r},${g},${b})`
+        }
+
+        var temp;
+        function addEventos(){
+            var btnIniciar1 = document.getElementById('btnIniciar1');
+            var btnIniciar2 = document.getElementById('btnIniciar2');
+            var btnParar = document.getElementById('btnParar');
+            var intervalo= 500;
+
+            btnIniciar1.addEventListener('click', function(){
+                setTimeout(mudaCor1, intervalo);
+            });
+            
+            btnIniciar2.addEventListener('click', function(){
+                temp = setInterval(mudaCor2, intervalo);
+            });
+            
+            btnParar.addEventListener('click', function(){
+                clearInterval(temp);
+            });
+        }
+        window.addEventListener('load', addEventos)
+
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+    <input type="button" id="btnIniciar1" value="iniciar">
+    <div id="div2"></div>
+    <input type="button" id="btnIniciar2" value="iniciar">
+    <input type="button" id="btnParar" value="parar">
+</body>
+</html>

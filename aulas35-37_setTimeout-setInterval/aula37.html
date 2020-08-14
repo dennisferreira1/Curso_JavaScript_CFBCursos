@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movendo bloco</title>
+    <style>
+        div{
+            background-color: #f00;
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        var dx;
+        var dy;
+        var posx;
+        var posy;
+        var vel;
+        var obj;
+        var temp;
+
+        function inicia(){
+            dx=0;
+            dy=0;
+            posx=0;
+            posy=0;
+            vel=1;
+            obj= document.getElementById('div');
+            document.addEventListener('keydown', teclaDown);
+            document.addEventListener('keyup', teclaUp);
+            temp= setInterval(enterFrame, 1);
+        }
+
+        function teclaDown(){
+            var tecla = event.keyCode;
+            switch(tecla){
+                case 37:
+                    dx= -1;
+                    break;
+                case 38:
+                    dy= -1;
+                    break;
+                case 39:
+                    dx= 1;
+                    break;
+                case 40:
+                    dy= 1;
+                    break; 
+            }
+        }
+        function teclaUp(){
+            var tecla = event.keyCode;
+            switch(tecla){
+                case 37:
+                    dx= 0;
+                    break;
+                case 38:
+                    dy= 0;
+                    break;
+                case 39:
+                    dx= 0;
+                    break;
+                case 40:
+                    dy= 0;
+                    break; 
+            }
+        }
+        function enterFrame(){
+            posx+= dx*vel;
+            posy+= dy*vel;
+            obj.style.top= `${posy}px`;
+            obj.style.left= `${posx}px`;
+        }
+
+        window.addEventListener('load', inicia);
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+</body>
+</html>
