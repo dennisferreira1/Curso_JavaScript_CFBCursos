@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliders</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #aaa;
+        }
+        #divsliders{
+            width: 1000px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: auto;
+            margin-top: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btnsliders{
+            width: 40px;
+            height: 120px;
+            background-color: rgba(0,0,0,0.4);
+            color:  rgba(255,255,255, 0.7);
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+        #divbar{
+            width: 100%;
+            height: 5px;
+            border: 1px solid rgba(255,255,255, 0.3);
+            margin-top: 25%;
+        }
+        #divprog{
+            width: 50%;
+            height: 100%;
+            background-color: #fff;
+        }
+    </style>
+    <script>
+        var imgs= [];
+        var divSliders;
+        var divprog;
+        var qtdeFotos;
+        var indiceFoto;
+        var tempoTroca;
+
+        function preCarregar(){
+            for(var i=0; i<qtdeFotos; i++){
+                imgs[i]= new Image();
+                imgs[i].src= "imgs/img" + (i+1) + ".jpg"
+            }
+        }
+        function mudarFoto(sentido){
+            indiceFoto+= sentido;
+            if(indiceFoto > qtdeFotos-1){
+                indiceFoto= 0;
+            }else if(indiceFoto < 0){
+                indiceFoto= qtdeFotos-1;
+            }
+            divSliders.style.backgroundImage= `url(${imgs[indiceFoto].src})`;
+            tempoTroca=0;
+        }
+        function iniciar(){
+            qtdeFotos= 4;
+            preCarregar();
+            divSliders = document.querySelector('#divsliders');
+            divprog = document.querySelector('#divprog');
+            indiceFoto=0;
+            divSliders.style.backgroundImage= `url(${imgs[indiceFoto].src})`;
+            tempoTroca=0;
+            preencherBarra();
+        }
+        function preencherBarra(){
+            tempoTroca++;
+            if(tempoTroca > 300){
+                mudarFoto(1);
+                tempoTroca=0;
+            }
+            divprog.style.width= `${tempoTroca/3}%`;
+            requestAnimationFrame(preencherBarra);
+        }
+
+        window.addEventListener('load', iniciar);
+
+    </script>
+</head>
+<body>
+    <div id="divsliders">
+        <button class="btnsliders" onclick="mudarFoto(-1)"><</button>
+        <div id="divbar">
+            <div id="divprog"></div>
+        </div>
+        <button class="btnsliders" onclick="mudarFoto(1)">></button>
+    </div>
+</body>
+</html>
