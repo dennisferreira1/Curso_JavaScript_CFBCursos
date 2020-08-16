@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strings</title>
+</head>
+<body>
+    <p id="txt">CFBCursos - Curso de JavaScript - aula 46 do curso de javascript</p>
+
+    <script>
+
+        var texto = document.getElementById('txt').innerHTML;
+
+        //Busca a palavra dentro da string considerando case sensitive. Retorna a palavra
+        //caso ela exista ou null caso contrário;
+        var res1 = texto.match('javascript');
+
+        //i: não considera case sensitive;
+        //g: não para na primeira ocorrencia encontrada e também armazena os valores 
+        //encontrados em um array;
+        var res2 = texto.match(/javascript/ig);
+
+        //[ao]: retorna todas ocorrências de 'a' e 'o';
+        var res3 = texto.match(/[ao]/ig);
+        //[^ao]: retorna todas ocorrências sem as letras 'a' e 'o';
+        var res4 = texto.match(/[^ao]/ig);
+
+        //[a-g]: retorna todas ocorrências de 'a' a 'g';
+        var res5 = texto.match(/[a-g]/ig);
+
+        //\d busca apenas números
+        var res6 = texto.match(/\d/ig);
+
+        //\D busca apenas caracteres que não são números
+        var res7 = texto.match(/\D/ig);
+
+        document.write(res1 + '<br>');
+        document.write(res2 + ': ' + res2.length + '<br>');
+        document.write(res3 + ': ' + res3.length + '<br>');
+        document.write(res4 + ': ' + res4.length + '<br>');
+        document.write(res5 + ': ' + res5.length + '<br>');
+        document.write(res6 + ': ' + res6.length + '<br>');
+        document.write(res7 + ': ' + res7.length + '<br>');
+    </script>
+</body>
+</html>
