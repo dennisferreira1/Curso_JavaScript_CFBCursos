@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        #dvmenu{
+            background-color: aqua;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #btiniciar{
+            margin-top: 10px;
+        }
+        .letra{
+            width: 20px;
+            height: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        #dvforca{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 30px;
+        }
+        #imgforca{
+            width: 500px;
+            height: 300px;
+        }
+        #controlesjogador{
+            margin-top: 50px;
+        }
+        #dvjogador{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: space-between;
+            flex-direction: column;
+        }
+        #dvmsg{
+            color: #00f;
+        }
+    </style>
+    <script>
+        var computador;
+        var outroJogador;
+        var biblioteca = ['ABACAXI', 'PERA', 'MAÇA', 'UVA', 'MELAO', 'ABACATE','BANANA', 'GOIABA', 'MORANGO'];
+        var posDaPalavra;
+        var palavra;
+        var dica;
+        var imgforca;
+        var dvletrasdigitadas;
+        var dvMsg;
+        var cxLetras;
+        const ERROS_MAX= 9;
+        var numErros=0;
+        var numAcertos;
+        var ganhou;
+
+        //INICIANDO O JOGO
+        function inicar(){
+            numAcertos=0;
+            numErros=0;
+            cxLetras=[];
+            ganhou=false;
+            dvletrasdigitadas = document.getElementById('dvletrasdigitadas');
+            dvletrasdigitadas.innerHTML = 'Letras digitadas: ';
+            imgforca = document.getElementById('imgforca');
+            imgforca.src = 'imgs/forca-0.png';
+            dvMsg = document.querySelector('#dvmsg');
+            dvMsg.innerHTML= '';
+
+            //VERIFICA COM QUEM VAI JOGAR
+            if(computador.checked){
+               iniciaContraPc()  //inicia o jogo com alguma palavra escolhida pelo sistema 
+               esconderDivMenu();
+               mostrarControlesJogador();
+               document.getElementById('letraTentativa').focus();
+               
+            }else if(outroJogador.checked){
+               iniciaContraOutro()  //inicia o jogo pedindo para digitar a palavra e a dica
+               esconderDivMenu();
+               mostrarControlesJogador();
+               document.getElementById('letraTentativa').focus();
+            }else{
+                alert('Selecione um jogador para iniciar!')
+            }
+        }
+        function esconderDivMenu(){
+            document.getElementById('dvmenu').style.display= 'none';
+        }
+        function mostrarControlesJogador(){
+            document.querySelector('#controlesjogador').style.display = 'block'
+        }
+
+        function iniciaContraPc(){
+            alert('Iniciando jogo com o PC');
+            // BUSCA UMA POSIÇÃO ALEATÓRIA DO ARRAY PARA SELECIONAR A PALAVRA
+            posDaPalavra = parseInt(Math.random()*(biblioteca.length-1));
+            palavra = biblioteca[posDaPalavra];
+            dica = 'FRUTA';
+            // CARREGA OS ESPAÇOS DAS LETRAS DE ACORDO COM A PALAVRA ESCOLHIDA
+            carregarLetras();
+        }
+        function carregarLetras(){
+            var dvPalavra = document.getElementById('dvpalavra'); //DIV ONDE SERÃO COLOCADAS AS LETRAS
+            dvPalavra.innerHTML = `<h4>NOME DE ${dica} COM ${palavra.length} LETRAS</h4>`;
+
+            //CRIANDO OS ELEMENTOS INPUT E INSERINDO NO HTML
+            for(var i=0; i<palavra.length; i++){
+                var input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('class', 'letra');
+                input.setAttribute('maxlength', '1');
+                input.setAttribute('disabled', 'true');
+                dvPalavra.appendChild(input);
+            }
+        }
+
+        // VERIFICANDO A LETRA ESCOLHIDA PELO JOGADOR
+        function tentarLetra(){
+            var letraTentativa = document.getElementById('letraTentativa').value.toUpperCase();
+            cxLetras.push(letraTentativa);
+            dvletrasdigitadas.innerHTML = 'Letras digitadas: ' + cxLetras;
+
+            //VERIFICA SE TEM A LETRA
+            if(!palavra.includes(letraTentativa)){ // NÃO TEM A LETRA
+                alert(`Não tem a letra '${letraTentativa}'`);
+                numErros++;
+                carregarBoneco(numErros); // ATUALIZA A IMAGEM DA FORCA
+                
+                // VERIFICA SE O JOGO ACABOU
+                if(numErros >= ERROS_MAX){
+                    finalizarJogo();
+                }
+                    
+            }else{ // TEM A LETRA
+                acrescentarLetra(letraTentativa); // ACRESCENTA A LETRA NO(S) ESPAÇO(S)
+            }
+            // LIMPANDO O CAMPO E COLOCANDO O FOCO ONDE É DIGITADA A LETRA ESCOLHIDA PELO JOGADOR
+            document.getElementById('letraTentativa').value= '';
+            document.getElementById('letraTentativa').focus();
+            
+        }
+        // MUDAR A IMAGEM DA FORCA
+        function carregarBoneco(erro){
+            var imgforca = document.getElementById('imgforca');
+            imgforca.setAttribute('src', `imgs/forca-${erro}.png`);
+        }
+        // ACRESCENTAR LETRAS
+        function acrescentarLetra(letra){
+            var indices=[];
+            //BUSCA AS POSIÇÕES ONDE TEM A LETRA E ARMAZENA EM UM ARRAY
+            for(var i=0; i<palavra.length; i++){
+                if(palavra[i] === letra){
+                    indices.push(i);
+                    numAcertos++ // ATUALIZA A QUANTIDADE DE ACERTOS
+                }
+            }
+            // BUSCA AS input QUE ESTÃO DENTRO DA DIV #dvpalavra
+            var inputLetras = document.querySelectorAll('div#dvpalavra > input');
+            for(var pos in indices){ // percorre o array de indices onde tem a letra
+                inputLetras[indices[pos]].value = letra; // insere a letra em cada posição no input
+            }
+            // VERIFICA SE O JOGO ACABOU
+            if(numAcertos === palavra.length){
+                ganhou= true;
+                finalizarJogo();
+            }
+        }
+        // MOSTRA MENSAGEM SE O JOGO TIVER ACABADO
+        function finalizarJogo(){
+            document.getElementById('controlesjogador').style.display = 'none';
+            if(ganhou){
+                dvMsg.innerHTML = '<h2>Parabéns!! Você acertou!!</h2>'
+            }else{
+                dvMsg.innerHTML = '<h2>Que pena, você perdeu!!</h2>'
+            }
+            var button = '<button id="btNovoJogo" onclick="novoJogo()">Jogar de novo</button>'
+            dvMsg.innerHTML += button;
+        }
+
+        function dica(){
+            alert(`Nome de: ${dica}`);
+        }
+
+
+        
+        function iniciaContraOutro(){
+            var txtPalavraDigitada = document.querySelector('#txtPalavra');
+            var txtDica = document.querySelector('#txtDica');
+            
+            if(validarCampos(txtPalavraDigitada, txtDica)){
+                alert('Iniciando jogo com outro jogador');
+                this.palavra = txtPalavraDigitada.value.trim().toUpperCase();
+                this.dica = txtDica.value.trim().toUpperCase();
+                 // CARREGA OS ESPAÇOS DAS LETRAS DE ACORDO COM A PALAVRA DIGITADA
+                carregarLetras(); 
+            }else{
+                alert("Preencha os dados!")
+            }
+           
+        }
+        function validarCampos(txtPalavraDigitada, txtDica){
+            //alert(txtPalavraDigitada.value + "/n" + txtDica.value);
+            if(txtPalavraDigitada.value.trim().length === 0 || txtDica.value.trim().length === 0){
+                return false;
+            }else{
+                return true;
+            }
+        
+        }
+
+        //MOSTRA CAMPOS PARA O JOGADOR PREENCHER CASO SEJA ESCOLHIDA A OPÇÃO "OUTRO JOGADOR"
+        function carregarCampoJog(){
+            var dvCamposJog = document.querySelector('#dvcamposjog');
+            dvCamposJog.innerHTML='';
+
+            // VERIFICA SE A OPÇÃO OUTRO JOGADOR ESTÁ SELECIONADA
+            if(document.querySelector('#rdMenuJog').checked){ // SELECIONADA
+                //ACRESCENTA OS CAMPOS NO HTML
+                dvCamposJog.innerHTML+= '<label>Palavra: <label><br><input type="text" id="txtPalavra"></input><br><br>';
+                dvCamposJog.innerHTML+= '<label>Dica: Ex: carro, fruta, comida etc. <label><br><input type="text" id="txtDica"></input>';
+               
+            }else{ // NÃO SELECIONADA
+                dvCamposJog.innerHTML='';
+            }
+        }
+
+        // INICIANDO NOVA PARTIDA
+        function novoJogo(){
+            document.getElementById('dvmenu').style.display= 'flex';
+            document.getElementById('controlesjogador').style.display = 'block';
+            dvletrasdigitadas.innerHTML = 'Letras digitadas: ';
+            dvMsg.innerHTML = '';
+            document.getElementById('dvpalavra').innerHTML = '';
+            imgforca.src = 'imgs/forca-0.png';
+            esconderControlesJogador();
+        }
+        function esconderControlesJogador(){
+            document.querySelector('#controlesjogador').style.display = 'none';
+        }
+
+        // ADICIONA OS EVENTOS AOS ELEMENTOS "#rdMenuJog" E "#rdMenuComp"
+        function addEventos(){
+            computador = document.getElementById('rdMenuComp');
+            outroJogador = document.getElementById('rdMenuJog');
+            outroJogador.addEventListener('change', carregarCampoJog);
+            computador.addEventListener('change', carregarCampoJog);
+            esconderControlesJogador();
+        }
+        //ADICIONA OUVINTE QUANDO A PÁGINA CARREGAR
+        window.addEventListener('load', addEventos);
+    </script>
+</head>
+
+<body>
+    <h1>Jogo da Forca</h1>
+    <div id="dvmenu">
+        <label id="lbmenu">Com quem você vai jogar?</label>
+        <label for="rdMenuComp"><input type="radio" id="rdMenuComp" name="adversario">Computador</label>
+        <label for="rdMenuJog"><input type="radio" id="rdMenuJog" name="adversario">Outro jogador</label>
+        <div id="dvcamposjog"></div>
+        <button id="btiniciar" onclick="inicar()">Iniciar jogo</button>
+    </div>
+    
+    <div id="dvjogador">
+        <div id="controlesjogador">
+            <input type="text" id="letraTentativa" class="letra" maxlength="1">
+            <button onclick="tentarLetra()">Tentar</button>
+            <button onclick="dica()">Dica</button>
+        </div>
+        <div id="dvforca">
+            <div id="dvletrasdigitadas">Letras digitadas:</div>
+            <div id="dvmsg"></div><br>
+            <div id="dvpalavra">
+        
+            </div>
+            <img id="imgforca" src="imgs/forca-0.png">
+        </div>
+    </div>
+    
+</body>
+</html>
