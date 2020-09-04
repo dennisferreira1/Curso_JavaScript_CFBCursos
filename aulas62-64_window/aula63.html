@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window</title>
+    <style>
+        #painel{
+            border: 1px solid #000;
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        var l, a, px, py;
+        var painel;
+
+       
+
+        function inicia(){
+            l= window.innerWidth;
+            a= window.innerHeight;
+            px= window.screenLeft;
+            py= window.screenTop;
+            painel= document.getElementById('painel');
+            painel.innerHTML= 'largura: ' + l + '<br>';
+            painel.innerHTML+= 'altura: ' + a + '<br>';
+            painel.innerHTML+= 'px: ' + px + '<br>';
+            painel.innerHTML+= 'py: ' + py;
+        }
+        function dimensoesJanela(){
+            l= window.innerWidth;
+            a= window.innerHeight;
+            px= window.screenLeft;
+            py= window.screenTop;
+            painel.innerHTML= 'largura: ' + l + '<br>';
+            painel.innerHTML+= 'altura: ' + a + '<br>';
+            painel.innerHTML+= 'px: ' + px + '<br>';
+            painel.innerHTML+= 'py: ' + py;
+        }
+
+        window.addEventListener("load", inicia)
+    </script>
+</head>
+<body>
+    <button onclick="dimensoesJanela()">Tamanho</button>
+    <div id="painel"></div>
+    
+</body>
+</html>

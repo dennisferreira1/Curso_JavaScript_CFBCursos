@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window</title>
+</head>
+<script>
+    
+    // abrindo nova janela com o método 'open()' do objeto 'window'
+    // podemos passar como parâmetros:
+    // url da página;
+    // _self, _blank: onde será aberta a janela
+    // propriedades como largura, altura, top, left
+    
+    var minhaJanela;
+    function abre(){
+        minhaJanela= window.open('pgTeste.html', '_blank', 'width= 300,height=300, top=200, left=200');
+    }
+    function fecha(){
+        minhaJanela.close();
+    }
+    
+</script>
+<body>
+    <button onclick="abre()">Abre janela</button>
+    <button onclick="fecha()">Fecha janela</button>
+    
+</body>
+</html>
