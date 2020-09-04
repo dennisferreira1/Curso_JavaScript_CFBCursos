@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    <style>
+        body{
+            background-color: #00f;
+            color: #fff;
+        }
+        a{
+            color: #fff;
+        }
+    </style>
+    <script>
+        function pg2(){
+            //Carrega a página 2 com a opção de voltar a página
+            location.assign('p2.html');
+        }
+        function pg3(){
+            //Carrega a página 3 sem dá a opção de voltar a página
+            location.replace('p3.html');
+        }
+        function recarregar(){
+            //Recarrega a página com o endereço atual
+            location.reload();
+        }
+    </script>
+</head>
+<body>
+    <h1>Location</h1>
+    <button onclick="pg2()">página 2</button>
+    <button onclick="pg3()">página 3</button>
+    <button onclick="recarregar()">recarregar</button>
+</body>
+</html>

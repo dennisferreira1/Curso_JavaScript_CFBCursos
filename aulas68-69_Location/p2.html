@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    <style>
+        body{
+            background-color: #f00;
+            color: #fff;
+        }
+        a{
+            color: #fff;
+        }
+    </style>
+    <script>
+       
+        //location :> Pegando o endereço de onde o objeto se encontra
+        var location= location;
+        document.write('Endereço completo:' + location + '<br>');
+        var href= location.href;
+        document.write('Endereço completo:' + href + '<br>');
+        //Podemos setar a url para um endereço específico. Ao fazer isso a página vai para o endereço setado
+        //location.href= 'http://www.youtube.com'
+
+        //location.protocol :> contém o esquema de protocolo da URL, incluindo o final ':'.
+        var protocol= location.protocol;
+        document.write('Protocolo da url :' + protocol + '<br>');
+
+        //location.host :>contém o host, que é o hostname seguido de ':' e a port da URL.
+        var host= location.host;
+        document.write('Host: ' + host + '<br>');
+
+        //location.hostname :>contém o domínio da URL.
+        var hostname= location.hostname;
+        document.write('Hostname: ' + hostname + '<br>');
+
+        //location.port :> contém o número da porta da URL.
+        var port= location.port;
+        document.write('Porta: ' + port + '<br>');
+
+        //location.pathname :>  contém '/', como caractere inicial, seguido do caminho da URL.
+        var pathname= location.pathname;
+        document.write('Pathname: ' + pathname + '<br>');
+
+        //location.origin :>contém a forma canônica da origem do local especificado.
+        var origin= location.origin;
+        document.write('Origem: ' + origin + '<br>');
+       
+        /**location.hash :> contém um '#' seguido do identificador de fragmento da URL.
+        var hash= location.hash;
+        var dados1= hash.split('#');
+        document.write(hash + "<hr>");
+        document.write(dados1[0] + "<hr>");
+        document.write(dados1[1] + "<hr>");
+        document.write(dados1[2] + "<hr>");**/
+
+        //location.search :> contém um '?' seguido dos parâmetros da URL.
+        var search= location.search;
+        var dados2= search.split('?');
+        document.write(search + "<hr>");
+        document.write(dados2[0] + "<hr>");
+        document.write(dados2[1] + "<hr>");
+        document.write(dados2[2] + "<hr>");
+    </script>
+</head>
+<body>
+    <h1>Página 2 - p2.html</h1>
+    <a href="aula68.html">voltar</a>
+</body>
+</html>
