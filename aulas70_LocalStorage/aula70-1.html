@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage</title>
+    <style>
+        #fconf{
+            display: none;
+            position: absolute;
+            top:0;
+            left:0;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 20px;
+            width: 200px;
+            height: 300px;
+            background-color: #888;
+
+        }
+    </style>
+    <script>
+
+        function abrirConfig(){
+            document.getElementById('fconf').style.display= 'block';
+        }
+
+        var corFundo, corTexto, nome;
+       
+        function gravar(){
+            if(typeof(Storage) != 'undefine'){
+                var nome= document.getElementById('fnome').value;
+
+                // Gravando dados do formulário no local storage
+                localStorage.corFundo= corFundo;
+                localStorage.corTexto= corTexto;
+                localStorage.nome= nome;
+                document.getElementById('fconf').style.display= 'none'
+           
+            }else{
+                document.write('Web Storage não definido!')
+            }
+        }
+
+        function defineCor(op, cor){
+            if(op == 1){
+                document.body.style.backgroundColor= cor;
+                corFundo= cor;
+            }else{
+                document.body.style.color= cor
+                corTexto= cor
+            }
+        }
+
+        function carregarConfig(){
+            if(localStorage.corFundo){
+                //buscando informações no local storage
+                corFundo= localStorage.corFundo;
+                corTexto= localStorage.corTexto;
+                var p= document.getElementById('painel');
+                p.innerHTML= 'Bem vindo, ' + localStorage.nome + '! <hr>';
+                defineCor(1,corFundo);
+                defineCor(2,corTexto);
+            }
+        }
+        window.addEventListener('load', carregarConfig);
+        
+    </script>
+</head>
+<body>
+
+    <h1>Local Storage - Curso de JavaScript</h1>
+    <p id="painel"></p>
+    <button onclick="abrirConfig()">Configurações</button>
+    <form name="fconf" id="fconf">
+        <label >Nome</label><br>
+        <input type="text" name="fnome" id="fnome" size="20"><br><br>
+        <label >Cor Fundo</label><br>
+        <input type="radio" name="fcorf" onclick="defineCor(1, '#000')">Preto <br>
+        <input type="radio" name="fcorf" onclick="defineCor(1, '#fff')">Branco <br>
+        <input type="radio" name="fcorf" onclick="defineCor(1, '#f00')">Vermelho <br>
+        <input type="radio" name="fcorf" onclick="defineCor(1, '#0f0')">Verde <br>
+        <input type="radio" name="fcorf" onclick="defineCor(1, '#00f')">Azul <br><br>
+        <label >Cor Texto</label><br>
+        <input type="radio" name="fcort" onclick="defineCor(2, '#000')">Preto <br>
+        <input type="radio" name="fcort" onclick="defineCor(2, '#fff')">Branco <br><br>
+        <input type="button" value="Gravar" onclick="gravar()">
+    </form>
+    
+</body>
+</html>

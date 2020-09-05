@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage</title>
+    <script>
+        //adicionando uma par chave-valor ao local storage
+        localStorage.setItem('nome', 'Dennis');
+        localStorage.setItem('curso', 'BTI');
+        //outra forma de adicionar
+        //localStorage.nome= 'Dennis'
+
+        //removendo um par chave-valor
+        localStorage.removeItem('nome');
+
+        //pegando um valor
+        var curso= localStorage.getItem('curso');
+        document.write(curso);
+        //outra forma de pegar o valor
+        //var curso= localStorage.curso
+
+        //pega a chave da posição do par que foi passada por parâmetro
+        document.write('<br>' + localStorage.key(0));
+
+        //limpa todo o Local Storage
+        localStorage.clear();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
