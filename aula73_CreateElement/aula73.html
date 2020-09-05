@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Element</title>
+    <script>
+        var lista;
+        function inicia(){
+            var li= document.createElement('li');
+            var texto= document.createTextNode('Curso de JavaScript - CFB Cursos');
+            li.appendChild(texto);
+            lista= document.getElementById('lista');
+            lista.appendChild(li);
+        }
+        
+        function adicionar(){
+            var li= document.createElement('li');
+            var txtnome= document.getElementById('txtNome');
+            li.textContent= txtnome.value;
+            lista.appendChild(li);
+            txtnome.value='';
+            txtnome.focus();
+
+        }
+        
+        window.addEventListener('load', inicia)
+    </script>
+</head>
+<body>
+    <input type="text" id="txtNome">
+    <button onclick="adicionar()">Adicionar</button>
+    <ul id="lista"></ul>
+    
+</body>
+</html>
