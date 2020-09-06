@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetAttribute - HasAttribute</title>
+    <style>
+        .estilo1{
+            color:blue
+        }
+        .estilo2{
+            color: red;
+        }
+    </style>
+    <script>
+
+        function iniciar(){
+           var elemento= document.getElementById('p2');
+           //pegando o valor do atributo de um elemento
+           var att= elemento.getAttribute('class');
+           console.log(att);
+          
+          //verificando se o elemento tem o atributo
+          if(elemento.hasAttribute('class')){
+              console.log('Tem o atributo')
+          }
+        }
+        
+        window.addEventListener('load', iniciar)
+    </script>
+</head>
+<body>
+    <!-- O ENTER após o fechamento da tag é contado como um nó filho -->
+    <div id="lista"><p id="p1" class="estilo1">
+        JavaScript</p><p id="p2" class="estilo2">
+        HTML5</p><p id="p3" class="estilo1">
+        CSS</p><p id="p4" class="estilo2">
+        Python</p><p id="p5" class="estilo1">
+        Java</p><p id="p6" class="estilo2">
+        C++</p></div>
+    
+</body>
+</html>
