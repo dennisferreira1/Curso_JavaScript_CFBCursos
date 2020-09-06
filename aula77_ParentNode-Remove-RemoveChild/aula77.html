@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParentNode-Remove-RemoveChild</title>
+    <script>
+
+        function iniciar(){
+           var elemento= document.getElementById('p1');
+           //pegando o nó pai
+           var elementoPai= elemento.parentNode;
+           //pegando o nome do nó
+           var nome1= elemento.nodeName;
+           var nome2= elementoPai.nodeName;
+           alert(elemento + '= ' + nome1 + '  ' + elementoPai + '= ' + nome2);
+
+           //removendo o elemento
+           elemento.remove();
+
+           var lista= document.getElementById('lista');
+           //removendo um filho de um elemento 
+           lista.removeChild(document.getElementById('p3'));
+        }
+        
+        window.addEventListener('load', iniciar)
+    </script>
+</head>
+<body>
+    <!-- O ENTER após o fechamento da tag é contado como um nó filho -->
+    <div id="lista"><p id="p1">
+        JavaScript</p><p id="p2">
+        HTML5</p><p id="p3">
+        CSS</p><p id="p4">
+        Python</p><p id="p5">
+        Java</p><p id="p6">
+        C++</p></div>
+    
+</body>
+</html>
