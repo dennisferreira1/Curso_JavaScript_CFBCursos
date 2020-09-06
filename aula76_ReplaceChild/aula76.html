@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReplaceChild</title>
+    <script>
+
+        function iniciar(){
+            var lista= document.getElementById('lista');
+            var antigoP= lista.childNodes[3];
+            var novoP= document.createElement('p');
+            novoP.innerHTML= 'Teste';
+            
+            //substituindo o nó
+            lista.replaceChild(novoP, antigoP);
+        }
+        
+        window.addEventListener('load', iniciar)
+    </script>
+</head>
+<body>
+    <!-- O ENTER após o fechamento da tag é contado como um nó filho -->
+    <div id="lista"><p>
+        JavaScript</p><p>
+        HTML5</p><p>
+        CSS</p><p>
+        Python</p><p>
+        Java</p><p>
+        C++</p></div>
+    
+</body>
+</html>
