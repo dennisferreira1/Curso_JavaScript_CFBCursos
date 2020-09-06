@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Attribute</title>
+    <script>
+
+        function iniciar(){
+            //criando o atributo 'style'
+            var atStyle= document.createAttribute('style');
+            //setando os valores do atributo
+            atStyle.value= 'color: #f00; font-size:30px'
+            var p= document.getElementsByTagName('p');
+            //inserindo o atributo na tag p[3]
+            p[3].setAttributeNode(atStyle);
+            //inserindo o atributo e setando diretamente na tag p[0]
+            p[0].setAttribute('style', 'color:#0f0; font-size:30px');
+        }
+        
+        window.addEventListener('load', iniciar)
+    </script>
+</head>
+<body>
+    <input type="text" id="txtNome" size="20"><button onclick="destacar()">Destacar</button>
+    <p>JavaScript</p>
+    <p>HTML5</p>
+    <p>CSS</p>
+    <p>Python</p>
+    <p>Java</p>
+    <p>C++</p>
+</body>
+</html>
