@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsertBefore-ChildNodes</title>
+    <script>
+        var lista;
+        function inicia(){
+            var li= document.createElement('li');
+            var texto= document.createTextNode('Curso de JavaScript - CFB Cursos');
+            li.appendChild(texto);
+            lista= document.getElementById('lista');
+            lista.appendChild(li);
+        }
+        
+        function appendChi(){
+            var li= document.createElement('li');
+            var txtnome= document.getElementById('txtNome');
+            li.textContent= txtnome.value;
+            lista.appendChild(li);
+            txtnome.value='';
+            txtnome.focus();
+
+        }
+        function insertBef(){
+            var li= document.createElement('li');
+            var txtnome= document.getElementById('txtNome');
+            li.textContent= txtnome.value;
+            var nodes= lista.childNodes;
+            //inserindo antes de algum elemento da lista
+            lista.insertBefore(li, nodes[0]);
+
+            var li1= document.createElement('li');
+            var txtnome= document.getElementById('txtNome');
+            li1.textContent= txtnome.value;
+
+            //inserindo antes de algum elemento com id especificado
+            lista.insertBefore(li1, document.getElementById('liteste'));
+
+            txtnome.value='';
+            txtnome.focus();
+        }
+        function contar(){
+            //buscando os filhos de uma determinada tag
+            var nodes= lista.childNodes;
+            //tamanho do vetor com os filhos
+            var qtde= nodes.length;
+            alert(qtde);
+        }
+        
+        window.addEventListener('load', inicia)
+    </script>
+</head>
+<body>
+    <input type="text" id="txtNome">
+    <button onclick="appendChi()">appendChild</button>
+    <button onclick="insertBef()">insertBefore</button>
+    <button onclick="contar()">Contar</button>
+    <ul id="lista"><li id="liteste">Teste</li></ul>
+    
+</body>
+</html>
